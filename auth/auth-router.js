@@ -15,10 +15,7 @@ router.post("/login", bodyValidator(["username", "password"]), userValidator, (r
                 res.status(200).json({ message: "Welcome, " + DBuser.username + "!" })
             } else next({ status:401, details: "Invalid Credentials >.>" })
         })
-        .catch(err => {
-            if (err.status) next(err)
-            else next({ devMessage: err.toString() })
-        })
+        .catch( err => next(err) )
 })
 
 router.post("/register", bodyValidator(["username", "password"]), userValidator, (req, res, next) => {
@@ -34,10 +31,7 @@ router.post("/register", bodyValidator(["username", "password"]), userValidator,
         .then( () => userModel.insert(user) )
         .then( id => userModel.findById( id[0] ) )
         .then( user => res.status(201).json(user) )
-        .catch(err => {
-            if (err.status) next(err)
-            else next({ devMessage: err.toString() })
-        })
+        .catch( err => next(err) )
 })
 
 router.get("/logout", (req, res, next) => {

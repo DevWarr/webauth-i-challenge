@@ -7,7 +7,7 @@ const router = express.Router();
 router.get("/users", (req, res, next) => {
     userModel.findAll()
         .then(users => res.status(200).json(users))
-        .catch(err => next({ devMessage: err.toString }))
+        .catch( err => next(err) )
 })
 
 module.exports = router;
