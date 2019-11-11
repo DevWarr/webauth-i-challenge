@@ -40,4 +40,15 @@ router.post("/register", bodyValidator(["username", "password"]), userValidator,
         })
 })
 
+router.get("/logout", (req, res, next) => {
+    if (req.session) {
+        req.session.destroy(err => {
+            if (err) next({ devMessage: "Error Logging out 0.0" });
+            else res.status(200).json({ message: "Good bye!" });
+        })
+    } else {
+        next({ status:400, details:"You weren't even looged in!" });
+    }
+})
+
 module.exports = router;
