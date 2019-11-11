@@ -3,13 +3,14 @@ const helmet = require("helmet");
 
 const errorHandler = require("./middleware/errorHandler");
 const authRouter = require("./auth/auth-router");
+const restrictTestRouter = require("./restricted/restrict-router");
 
 server = express();
 server.use(helmet());
 server.use(express.json());
 
 server.use("/auth", authRouter);
-// server.use("/api", restrictTestRouter);
+server.use("/api", restrictTestRouter);
 server.get("/", (req, res) => {
     res.send("We're in boyz!")
 })
